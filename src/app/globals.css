@@ -1,0 +1,842 @@
+@tailwind base;
+@tailwind components;
+/* styles/globals.css */
+:root{
+  --background-color: #fff;
+  --background-light: #fff;
+  --shadow-color: rgba(0,0,0,0.2);
+  --primary-color: rgba(255, 0, 86);
+  --text-color: #0a0a0a;
+  --text-light: #575757;
+  --font-size: 16px;
+  --animation-speed: 1;
+}
+
+/* Navbar Styling */
+.navbar {
+  height: 50px;
+  box-shadow: 0 3px 6px var(--shadow-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 998;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: 0 3.5rem;
+  transition: background-color var(--animation-speed) ease-in-out;
+}
+
+.navbar .logo {
+  font-size: 1.5em;
+  font-weight: bolder;
+  color: var(--primary-color);
+  text-shadow: 0 1px 3px var(--shadow-color);
+  span {
+      color: var(--text-color);
+  }
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+  transition: opacity var(--animation-speed) ease-in-out;
+}
+
+/* Hide nav links on small screens */
+.navbar .nav-links a {
+  margin-left: 1em;
+  color: var(--text-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  font-size: 0.9em;
+  padding: 0.5em;
+  transition: color var(--animation-speed) ease-in-out;
+}
+
+.navbar .nav-links a::before {
+  content: '';
+  display: inline-block;
+  height: 3px;
+  width: 100%;
+  background-color: var(--primary-color);
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  transform: scale(0);
+  transition: transform var(--animation-speed) ease-in-out;
+}
+
+.navbar .nav-links a:hover::before {
+  transform: scale(1);
+}
+
+.navbar .nav-links a.active {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.navbar .sidebar-btn {
+  display: none;
+  cursor: pointer;
+  height: 28px;
+  width: 30px;
+  position: relative;
+}
+
+.navbar .sidebar-btn .bar {
+  background-color: var(--text-color);
+  height: 5px;
+  width: 100%;
+  border-radius: 5px;
+  position: absolute;
+  transition: transform var(--animation-speed) ease-in-out;
+}
+
+.navbar .sidebar-btn.active .bar:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+.navbar .sidebar-btn.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar .sidebar-btn.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+
+
+/* Sidebar Styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 300px;
+  background-color: var(--background-color);
+  box-shadow: 3px 0 5px var(--shadow-color);
+  z-index: 999;
+  transition: transform var(--animation-speed) ease-in-out;
+  transform: translateX(-100%); /* Hide sidebar by default */
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Open sidebar */
+}
+.sidebar-close{
+  text-align: right;
+  font-size: 24px;
+  font: bold;
+  padding: 1rem;
+}
+
+.sidebar .sidebar-link {
+  display: flex;
+  padding: 0.5em 1em;
+  color: var(--text-color);
+  font-size: 1.1em;
+  margin-bottom: 1em;
+  border-left: 0.4em solid transparent;
+  transition: background-color var(--animation-speed) ease-in-out;
+}
+
+.sidebar .sidebar-link.active {
+  border-left-color: var(--primary-color);
+}
+
+.sidebar .sidebar-link:hover {
+  border-left-color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar .sidebar-link svg {
+  width: 1.2em;
+  margin-right: 0.5em;
+}
+
+/* Nav Links Visibility on Mobile */
+.nav-links.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-links.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Global Styles for Star Section */
+.section-star {
+  display: flex;
+  align-items: center;
+  margin: 3.5rem auto;
+  padding: 1rem 4rem;
+  gap: 2rem;
+}
+
+.section-star .typography {
+  padding-right: 1em;
+  width: 50%;
+}
+.typography .title{
+  color: var(--text-color);
+  font-size: 3em;
+  margin-bottom: .25em;
+}
+.typography 
+.info{
+    color: var(--text-light);
+    font-size: 1em;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin-bottom: 1.25em;
+}
+.btn{
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  outline: none;
+  padding: .75em 1em;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  cursor: pointer;
+}
+.btn:hover{
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+.section-star .gallery {
+  display: grid;
+  width: 40%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+}
+
+.section-star .gallery .custom-image {
+  border-radius: 3px;
+  overflow: hidden;
+  transform: scale(0);
+  opacity: 0;
+  object-fit: fill;
+  animation: popOut 0.5s forwards;
+}
+
+.section-star .gallery .custom-image:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.section-star .gallery .custom-image:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.section-star .gallery .custom-image:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.section-star .gallery .custom-image:nth-child(7) {
+  animation-delay: 0.4s;
+}
+
+.section-star .gallery .custom-image:nth-child(8) {
+  animation-delay: 0.5s;
+}
+
+.section-star .gallery .custom-image:nth-child(9) {
+  animation-delay: 0.6s;
+}
+
+.section-star .gallery .custom-image:nth-child(6) {
+  animation-delay: 0.7s;
+}
+
+.section-star .gallery .custom-image:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+/* Animation */
+@keyframes popOut {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Flexbox layout for the improve-skills section */
+.section.improve-skills {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem; 
+  padding: 2rem 3.5rem; 
+  width: 100%; 
+}
+
+/* Image column setup */
+.section.improve-skills .col.img {
+  flex: 1; 
+}
+
+.section.improve-skills .col.typography {
+  flex: 1;
+  max-width: 60%; 
+}
+
+.section.improve-skills .col.typography .skill-item {
+  border-left: 0.2em solid var(--primary-color);
+  margin-bottom: 0.5em;
+  padding: 0.1em 0 0.1em 0.5em;
+  color: var(--text-light);
+  font-weight: bold;
+  transform: translateX(100%);
+  opacity: 0;
+  animation: slideInRight 0.3s forwards;
+}
+
+.section.improve-skills .col.typography .skill-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.section.improve-skills .col.typography .skill-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.section.improve-skills .col.typography .skill-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.section.improve-skills .col.typography .skill-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.section.improve-skills .col.typography .skill-item:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.section.improve-skills .col.typography .skill-item:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+/* Button Styling */
+.section.improve-skills .col.typography .btn {
+  margin-top: 0.75em;
+}
+
+/* Keyframes for animation */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+
+/* Quote Section */
+.section.quote {
+  display: block;
+  padding: 1rem 3rem;
+}
+
+.section.quote .quote-text {
+  font-size: 1.2em;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+.section.quote .quote-text svg {
+  color: var(--primary-color);
+  font-size: 1.5em;
+  margin-right: 0.5em;
+}
+
+.section.quote .quote-author {
+  color: var(--text-light);
+  text-align: right;
+  margin-top: 1em;
+}
+
+
+/* Chef Section Styling */
+.chef-section{
+  padding: 1rem 3rem;
+}
+.chef-section .title{
+  text-align: center;
+  color: var(--text-color);
+  font-size: 3em;
+  margin-bottom: .25em;
+}
+.section.chef {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 1em;
+  margin-top: 3em;
+}
+.chef-card {
+  display: flex;
+  height: 120px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.chef-card img {
+  height: 100%;
+  width: 120px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px var(--shadow-color);
+}
+
+.chef-card-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+}
+
+.chef-card-info .chef-card-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.chef-card-info .chef-recipe-count,
+.chef-card-info .chef-cuisine {
+  font-size: 1em;
+  color: var(--text-light);
+}
+
+.chef-card-info .chef-icons {
+  display: flex;
+  justify-content: left;
+  gap: 2px;
+  font-size: 1em;
+}
+
+.chef-card-info .chef-icons svg {
+  margin-right: 0.5em;
+}
+
+.chef-card-info .chef-icons svg:nth-child(1) {
+  color: #0063f7;
+}
+
+.chef-card-info .chef-icons svg:nth-child(2) {
+  color: #13b4ff;
+}
+
+.chef-card-info .chef-icons svg:nth-child(3) {
+  color: #ff0056;
+}
+
+
+
+/* Footer Styling */
+.footer {
+  width: 100%;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  padding: 1rem 3rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-gap: 1em;
+}
+
+.footer .footer-section p {
+  opacity: 0.9;
+  margin-bottom: 0.5em;
+}
+
+
+.footer .footer-section p.title {
+  font-size: 1.5em;
+  font-weight: bolder;
+  color: white;
+  text-shadow: 0 1px 3px var(--primary-color);
+  opacity: 1;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 26px;
+}
+.footer .footer-section p.heading {
+  font-size: 1.5em;
+  font-weight: bolder;
+  color: white;
+  opacity: 1;
+  font-weight: bold;
+  margin-bottom: 1em;
+  font-size: 1em;
+}
+.footer-section .social-icons{
+  display: flex;
+  justify-content: left;
+  gap: 1em;
+}
+
+
+/* Previous Searches Section */
+.previous-searches {
+  display: block;
+  margin: 5rem 3rem;
+}
+
+.previous-searches h2 {
+  color: var(--text-color);
+  font-size: 3em;
+  margin-bottom: .25em;
+}
+
+.previous-searches-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.previous-searches-container .search-item {
+  background-color: var(--primary-color);
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0 1em 1em 0;
+  color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 3px 6px var(--shadow-color);
+  transform: translateX(100%);
+  opacity: 0;
+  animation: slideInRight 0.5s forwards;
+}
+
+/* Adding animation delay dynamically for each search-item */
+.previous-searches-container .search-item:nth-child(1) {
+  animation-delay: 0s;
+}
+.previous-searches-container .search-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.previous-searches-container .search-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.previous-searches-container .search-item:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.previous-searches-container .search-item:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.previous-searches-container .search-item:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.previous-searches-container .search-item:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.previous-searches-container .search-item:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.previous-searches-container .search-item:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.previous-searches-container .search-item:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+/* Search Box Styling */
+.previous-searches .search-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 35px;
+}
+
+.previous-searches .search-box input,
+.previous-searches .search-box .btn {
+  height: 35px;
+}
+
+.previous-searches .search-box input {
+  min-width: 250px;
+  padding: 0 0.5em;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  border: 1px solid #4d4d4d;
+}
+
+.previous-searches .search-box .btn {
+  padding: 0 0.75em;
+  border-radius: 0 5px 5px 0;
+}
+
+/* Animation Keyframes */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+
+/* Recipes Container */
+
+.recipes-container {
+  width: 100%;
+  padding: 1rem 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5em;
+}
+
+/* Recipe Card */
+.recipe-card {
+  isolation: isolate;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  background-color: var(--background-color);
+}
+
+/* Recipe Card Info */
+.recipe-card .recipe-card-info {
+  padding: 15px;
+}
+
+/* Custom Image */
+.recipe-card .custom-image {
+  z-index: -1;
+}
+
+/* Author Image */
+.recipe-card .auther-img {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--background-light);
+  box-shadow: 0 1px 3px var(--shadow-color);
+  margin-top: -50px;
+  z-index: 2;
+}
+
+/* Recipe Title */
+.recipe-card .recipe-title {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: var(--text-color);
+  margin-top: 0.25em;
+}
+
+/* Recipe Description */
+.recipe-card .recipe-desc {
+  color: var(--text-light);
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+
+/* View Button */
+.recipe-card .view-btn {
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-top: 0.75em;
+  display: inline-block;
+}
+/* signup page */
+.signup-container {
+  width: 70%;
+  margin: 5rem auto;
+  padding: 2em;
+}
+
+.signup-form {
+  background-color: var(--form-background);
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  text-align: center;
+}
+
+.signup-form h2 {
+  margin-bottom: 1em;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5em;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 1em;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  font-size: 1em;
+  color: var(--text-color);
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 0.75em;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  width: 30%;
+  margin: auto;
+  font-weight: bold;
+}
+
+.signup-btn:hover {
+  background-color: rgb(158, 2, 2);
+}
+
+.login-link {
+  margin-top: 1em;
+  font-size: 0.9em;
+}
+
+.login-link span {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.login-link span:hover {
+  text-decoration: underline;
+}
+
+
+/* Responsive styles for small screens */
+@media (max-width: 1000px) {
+  .section.improve-skills .col.typography {
+    width: 100%;
+  }
+  .section.improve-skills .col.typography .title {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 1em;
+  }
+}
+@media (max-width: 786px) {
+  .navbar{
+    padding: 0 1.5rem;
+  }
+  .navbar .sidebar-btn {
+      display: block; 
+    }
+  
+  .navbar .nav-links {
+      display: none;
+    }
+    .section-star {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2(1fr);
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    .section-star .typography{
+      width: 100%;
+      text-align: center;
+    }
+    .section-star .gallery{
+      width: 80%;
+      margin: auto;
+    }
+    .section.improve-skills{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2(1fr);
+      gap: 10px;
+      margin: auto;
+      width: 100%;
+    }
+    .section.improve-skills .col.img {
+      max-width: 100%; 
+    }
+    
+    .section.improve-skills .col.typography {
+      width: 100%;
+    }
+
+    .section.improve-skills .img img{
+      margin: 0 auto;
+      width: 300px;
+      height: 300px;
+    }
+    .section.quote {
+      padding: 1rem 2rem;
+    }
+    .chef-section .title{
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .section.chef {
+      margin: 1rem auto
+    }
+    .footer {
+      padding: 1rem 2rem;
+      display: grid;
+      grid-template-columns: 2fr;
+      grid-template-rows: auto;
+      grid-gap: 1em;
+    }
+    .signup-container {
+      width: 95%;
+    }
+    .previous-searches {
+      display: block;
+      margin: 5rem 2rem;
+    }
+    .previous-searches h2 {
+      font-size: 1.5em;
+    }
+  }
+
+
+@tailwind utilities;
